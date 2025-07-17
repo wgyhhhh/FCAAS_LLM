@@ -14,14 +14,14 @@
       
       
       
-        <link rel="next" href="01-introduction/intro/">
+        <link rel="next" href="Chapter-1/1-1PyTorch/">
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.18">
     
     
       
-        <title>欢迎 - LLM的对齐和安全性的基础挑战</title>
+        <title>欢迎 - Clear PyTorch</title>
       
     
     
@@ -77,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#welcome-to-clear_pytorch" class="md-skip">
           跳转至
         </a>
       
@@ -95,7 +95,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="." title="LLM的对齐和安全性的基础挑战" class="md-header__button md-logo" aria-label="LLM的对齐和安全性的基础挑战" data-md-component="logo">
+    <a href="." title="Clear PyTorch" class="md-header__button md-logo" aria-label="Clear PyTorch" data-md-component="logo">
       
   <img src="img/logo.jpg" alt="logo">
 
@@ -107,7 +107,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            LLM的对齐和安全性的基础挑战
+            Clear PyTorch
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -241,8 +241,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="01-introduction/intro/" class="md-tabs__link">
-        介绍
+      <a href="Chapter-1/1-1PyTorch/" class="md-tabs__link">
+        第一章
       </a>
     </li>
   
@@ -269,12 +269,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="LLM的对齐和安全性的基础挑战" class="md-nav__button md-logo" aria-label="LLM的对齐和安全性的基础挑战" data-md-component="logo">
+    <a href="." title="Clear PyTorch" class="md-nav__button md-logo" aria-label="Clear PyTorch" data-md-component="logo">
       
   <img src="img/logo.jpg" alt="logo">
 
     </a>
-    LLM的对齐和安全性的基础挑战
+    Clear PyTorch
   </label>
   
     <div class="md-nav__source">
@@ -359,19 +359,17 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-          介绍
+          第一章
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          介绍
+          第一章
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -381,22 +379,8 @@
   
   
     <li class="md-nav__item">
-      <a href="01-introduction/intro/" class="md-nav__link">
-        介绍
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="01-introduction/1-1/" class="md-nav__link">
-        1.1-为什么要创建这个文档
+      <a href="Chapter-1/1-1PyTorch/" class="md-nav__link">
+        PyTorch的安装
       </a>
     </li>
   
@@ -436,15 +420,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    🎯 项目介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    机器学习与自然语言处理研究者
+    🧠 收获
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    社会技术研究者及其他利益
+    🤝 合作
   </a>
   
 </li>
@@ -480,15 +471,96 @@
   
 
 
-<h1 id="_1">读者指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>由于本份文档的长度(请注意主要内容只有100多页，其余为参考文献)，它可能无法让所有读者完整阅读本文档。因此，我们在这里提出一些阅读的策略和建议来帮助读者更好地利用这份文档。</p>
-<p>我们建议所有读者在开始阅读此文档时先阅读主要介绍(第一节)，以掌握本文档的高级上下文。为了快速了解概况，读者可以浏览各类挑战的介绍(例如第二节、第三节和第四节)并且查看相关的表1、3和4，这几个表对三个类别中讨论的挑战进行了高度的精简。从这里开始，感兴趣深入了解的读者可以选择任何感兴趣的部分。请注意，所有挑战章节(例如Section 2.1)都具有独立完整性，因此可以按照<strong>任意顺序</strong>进行阅读。</p>
-<h2 id="_2">机器学习与自然语言处理研究者<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>本文档的目标读者是机器学习、自然语言处理及相关领域的技术研究人员。我们尽可能减少背景知识预设，仅要求读者了解大语言模型(LLM)的基本概念、架构原理和训练方法。因此，具备机器学习或者自然语言处理专业研究生一年级同等知识水平的读者，均可理解第二节与第三节所述的全部技术挑战，第四节讨论的挑战大部分同样具有技术属性，其理解门槛与之相当。</p>
-<p>本文档的主要目标是为初入该领域的研究人员(当然，资深专家也可能从中获得启发)指明具有研究价值且可操作的研究方向。建议读者根据自身兴趣选择性阅读相关章节。所列出的200多个问题，其规模均大致可构成一篇研究论文的基础。针对每项挑战及子挑战，我们在探讨未来研究方向之前，均会阐述其研究意义、背景知识及相关工作。这些内容能为刚接触特定挑战的研究者提供良好的起点，但本文并不试图对任何领域进行全面综述。</p>
-<p>我们还指出，虽然本研究源于对大语言模型(LLM)安全性与对齐性的关注，但所揭示的诸多挑战从技术和科学视角来看仍然具有研究价值。因此，即使那些主要关注点不在安全性，而是寻求以LLM为核心的有趣问题的读者，本文档仍然可以提供有益参考。</p>
-<h2 id="_3">社会技术研究者及其他利益<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>在第四节中，我们聚焦于社会技术挑战，强调所有大语言模型本质上都是社会技术系统，若缺乏这一视角的深入思考，便无法确保安全性。本节引言建立了我们所讨论的各类挑战与其他学科领域之间的映射关系-这些领域的研究进展可以推动相关挑战的解决。除少数内容外，本节仅需读者具备对大语言模型的基础认知，其目标受众范围较文档其他部分更为广泛。</p>
+<div align='center'>
+    <h1>Clear_PyTorch</h1>
+    <img src="./img/cover.png" alt="alt text" width="100%">
+</div>
+
+<h1 id="welcome-to-clear_pytorch">Welcome To Clear_Pytorch<a class="headerlink" href="#welcome-to-clear_pytorch" title="Permanent link">&para;</a></h1>
+<h2 id="_1">🎯 项目介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>尽管网络上已有许多PyTorch的系统教程，但大多数教程往往篇幅冗长且零碎，缺乏实例讲解。目前，深度学习领域的代码通常由多个脚本文件组成，代码量庞大，常常达到几千行。为了解决这一问题，笔者计划在讲解PyTorch的过程中，选取一些较为新颖的代码库作为示例，力求让大家了解前沿领域的发展情况。此外，笔者还将提供一个PyTorch题库及其解决方案，以便大家进行练习和巩固。希望通过本项目，帮助大家高效、熟练地掌握PyTorch。*            </p>
+</div>
+<p>本项目是一个<strong>系统性的 Pytorch 学习教程</strong>，整套教程将主要分为理论与实践两个部分：</p>
+<p>📚 基础知识(第1~5章)讲解PyTorch内容，这部分内容将主要讲解PyTorch的基础知识。对于这部分内容，将提供文章讲解和Python源码，建议读者可以使用Jupyter逐步复现，从而深度理解。</p>
+<ul>
+<li>第1章介绍PyTorch的安装，Jupyter的使用，以及深度学习环境的配置。同时，对PyTorch的主要内容做了一个精简的概要，使得读者可以初步了解PyTorch，并编写自己的第一个项目来实现手写数字识别。</li>
+<li>第2章介绍PyTorch中的重要数据结构Tensor，维度变换及自动微分系统。并且对每个部分进行了较为细致的剖析，从而帮助读者理解PyTorch的底层原理。</li>
+<li>第3章围绕PyTorch中一些核心的进阶操作展开，介绍如何利用TensorBoard进行可视化，如何使用Transforms进行数据增强，以及如何启用GPU加速以提高训练效率。</li>
+<li>第4章介绍PyTorch的nn.Module的基本用法和构造方法。讲解了神经网络中的各种层、激活函数、损失函数。</li>
+<li>第5章介绍PyTorch的向量化思想以及nn.DataParallel函数进行PyTorch的多GPU训练。</li>
+</ul>
+<p>⚙️ 实践操作(第6~8章)剖析目前较为新颖的项目代码，这部分内容主要选取了两个经典领域的代码进行讲解。</p>
+<ul>
+<li>第6章介绍当读者缺少算力时，如何租赁云服务器并通过SSH远程连接来运行项目，主要将介绍PyCharm专业版，FileZilla，MobaXterm的使用与配置。</li>
+<li>第7章选取-待定。</li>
+<li>第8章选取-待定。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>关键内容</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[第一章 前期准备]</td>
+<td>PyTorch安装、基础知识简要、环境配置、</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>[第二章 PyTorch进阶1]</td>
+<td>维度变换、自动微分、Tensor结构</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>[第三章 PyTorch进阶2]</td>
+<td>TensorBoard、Transforms、GPU加速</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>[第四章 PyTorch进阶3]</td>
+<td>nn.Module类、优化器、激活函数</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>[第五章 PyTorch进阶4]</td>
+<td>向量化思想、并行计算、高级索引</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>[第六章 PyTorch实践1]</td>
+<td>SSH连接，云服务器租赁，软件配置</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>[第七章 PyTorch实践2]</td>
+<td>计算机视觉-医学图像分割</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>[第八章 PyTorch实践3]</td>
+<td>自然语言处理-虚假新闻检测</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">🧠 收获<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>框架掌握</strong> PyTorch框架的掌握，可以熟练应用PyTorch创建项目</li>
+<li><strong>深入理解</strong> 神经网络的背后原理，初步了解深度学习的理论</li>
+<li><strong>项目实践</strong> 从软件安装到环境配置，体验一个项目的全部流程</li>
+</ul>
+<h2 id="_3">🤝 合作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>👩‍💻 <strong>检查代码</strong> - 请提交 Pull Request</li>
+<li>🛠️ <strong>错误更正</strong> - 有错误之处请提交issue</li>
+<li>🧑‍🎓 <strong>内容完善</strong> - 帮助撰写教程内容</li>
+<li>✉️ <strong>合作作者</strong> - 合作者可以给我发邮件：<a href="mailto:wgyhhh001@gmail.com">wgyhhh001@gmail.com</a></li>
+</ul>
 
 
 
@@ -518,13 +590,13 @@
         
         
           
-          <a href="01-introduction/intro/" class="md-footer__link md-footer__link--next" aria-label="下一页: 介绍" rel="next">
+          <a href="Chapter-1/1-1PyTorch/" class="md-footer__link md-footer__link--next" aria-label="下一页: PyTorch的安装" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                介绍
+                PyTorch的安装
               </div>
             </div>
             <div class="md-footer__button md-icon">
