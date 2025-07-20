@@ -7,12 +7,12 @@
 
 /*亮色样式*/
 [data-md-color-scheme="default"] {
-    --md-primary-fg-color: rgba(245, 242, 242, 0.149);
-    --md-header-bg-color: rgba(109, 196, 17, 0.921);
+    --md-primary-fg-color: #312f2f26;
+    --md-header-bg-color: hwb(80 23% 76% / 0.92);
     --md-typeset-a-color: steelblue;
-    --md-footer-bg-color: #74cc0f;
-    --md-footer-bg-color--dark: #c1ab0b;
-    --md-footer-fg-color: #fefefe;
+    --md-footer-bg-color: hsl(90, 3%, 26%);
+    --md-footer-bg-color--dark: hsl(60, 3%, 14%);
+    --md-footer-fg-color: hsl(0, 3%, 66%);
     --md-footer-fg-color--light: #505050;
     --md-footer-fg-color--lighter: #777777;
     --md-code-hl-comment-color: #ad4444;
@@ -22,7 +22,7 @@
 [data-md-color-scheme="slate"] {
     --md-primary-fg-color: rgba(17, 16, 17, 0.7);
     --md-header-bg-color: rgba(17, 16, 17, 0.7);
-    --md-typeset-a-color: royalblue;
+    --md-typeset-a-color: #7692e8;
     --md-footer-bg-color: #101010;
     --md-footer-bg-color--dark: #101010;
     --md-code-hl-comment-color: #777777;

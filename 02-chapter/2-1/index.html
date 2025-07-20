@@ -13,17 +13,13 @@
       
       
       
-        <link rel="prev" href="../../01-introduction/1-3/">
-      
-      
-        <link rel="next" href="../../paper/1/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.18">
     
     
       
-        <title>介绍 - LLM的对齐和安全性的基础挑战</title>
+        <title>2 1 - LLM的对齐和安全性的基础挑战</title>
       
     
     
@@ -78,11 +74,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#2-llm" class="md-skip">
-          跳转至
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -115,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              介绍
+              2 1
             
           </span>
         </div>
@@ -251,15 +242,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
+      <a href="../intro/" class="md-tabs__link">
         第二章
       </a>
     </li>
@@ -481,16 +470,16 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
       
       
         
@@ -503,7 +492,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           第二章
@@ -514,21 +503,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
         介绍
       </a>
-      
     </li>
   
 
@@ -612,8 +591,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -628,7 +605,7 @@
                   
 
   
-    <a href="https://github.com/wgyhhhh/FCAAS_LLM/edit/master/docs/02-chapter/intro.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/wgyhhhh/FCAAS_LLM/edit/master/docs/02-chapter/2-1.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -636,52 +613,9 @@
   
 
 
-<h1 id="2-llm">2 对LLM的科学理解<a class="headerlink" href="#2-llm" title="Permanent link">&para;</a></h1>
-<p>当前许多安全性和对齐性挑战源于我们队大语言模型(LLMs)科学认知的不足。若能深化对LLM的理解，将有助于更准确地评估当前及未来LLMs的风险，并设计有效的干预措施来降低这些风险。科学理解同样是系统可信度的重要因素-尤其是对复杂系统而言。桥梁设计、飞行器设计、核反应堆设计、航天器设计等经典案例表明，这些复杂系统的安全性与可信度高度依赖于科学理解。如果缺乏对基本原理的科学理解，要确保这些系统的可靠性即使并非完全不可能，也将变得极其困难。</p>
-<p>LLMs展现出了复杂系统的诸多典型特征(<a href="https://arxiv.org/pdf/2308.00189">Holtzman等, 2023</a>; <a href="https://bounded-regret.ghost.io/complex-systems-are-hard-to-control/">Steinhardt等, 2023</a>; <a href="https://arxiv.org/pdf/2411.01042">Hendrycks等, 2023</a>)，其中最显著的是涌现行为(emergent behaviors)(<a href="https://arxiv.org/pdf/2206.07682">Wei等, 2022</a>; <a href="https://arxiv.org/pdf/2304.03442">Park等, 2023</a>). 这种类复杂系统的特性意味着，仅依赖"评估"可能无法充分保障安全性与可靠性(参见2.2.3节与3.3节)，亟需突破对大语言模型表层行为的观测，从根本上理解这些行为的产生机制(<a href="https://arxiv.org/pdf/2308.00189">Holtzman等, 2023</a>)。</p>
-<p>理解大语言模型是一项重大的科学挑战，然而基于本文的整体研究主题，我们重点关注与安全性有关的方面(见表1)。解决这些挑战将有助于为更安全的LLM开发或部署实践提供依据；但要将此处的洞见转换为实际建议，仍需开展更多工作。</p>
-<p>科学理解可以呈现多种不同的形式(<a href="https://dl.acm.org/doi/10.1002/sys.21255">Adams</a>)。事实上，我们所识别的挑战本身就允许多样化的研究风格。部分挑战本质上就是高度理论性的(例如，<strong>Transformers的计算极限是多少(第2.4.5节)</strong>或者<strong>理解规模化法则(scaling laws)(第2.3.1节)</strong>)，而另一些可能需要更实证的方法来解决(例如，<strong>单智能体训练对多智能体交互的影响尚不清楚(第2.6.1节)</strong>)。总体而言，我们提出的挑战大多聚焦于建立对大语言模型的定性理解。定性理解往往能形成定量分析所无法实现的普遍规律，因此对LLMs的快速迭代可能更具鲁棒性。这种定性认知的优越性早在50年前就被Herbert Simon和Allen Newell在1975年图灵奖演讲中盛赞了-巧合的是，该演讲同样是关于人工智能系统的设计与理解议题(<a href="https://dl.acm.org/doi/10.1145/360018.360022">Newell和Simon</a>)。</p>
-<blockquote>
-<p>表1：第2节（大语言模型的科学理解）所讨论挑战的概述。需要强调的是，本概述是该节内容的<strong>高度浓缩摘要</strong>，因此不能替代对相应章节的完整阅读。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">挑战</th>
-<th style="text-align: center;">介绍</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;">上下文学习是黑盒子</td>
-<td style="text-align: center;">我们尚未充分理解以下关键问题：大规模训练如何以及为何会催生上下文学习能力；大型语言模型（LLMs）中上下文学习的底层机制是什么；LLMs的上下文学习在多大程度上源于元优化（mesa-optimization）；以及该能力与现有学习算法的关联性。</td>
-</tr>
-<tr>
-<td style="text-align: center;">能力难以评估与理解</td>
-<td style="text-align: center;">由于多种原因，准确评估和理解大型语言模型（LLMs）的能力存在困难。首先，LLM的能力呈现与人类能力不同的"形态"；这意味着用于理解和评估人类能力的认知框架可能并不适用于理解LLM的能力。此外，"能力"这一概念缺乏严格的定义，导致难以对LLM能力进行形式化断言及其评估。若想更好地理解LLM能力，我们还需克服现有评估方法中的根本缺陷，例如基准测试无法区分对齐失败与能力不足的问题。同时，我们需要改进评估工具以衡量LLM的泛化能力，并开发新方法来更有效地评估模型在结构化支持下的表现。</td>
-</tr>
-<tr>
-<td style="text-align: center;">规模对能力的影响尚未得到充分表征</td>
-<td style="text-align: center;">理解和预测规模对大型语言模型（LLM）能力的影响面临多重挑战，主要包括：1.对经验性缩放规律的理论认识尚不完善；2.对缩放极限及学习表征如何受规模影响的认知有限；3.因缺乏形式化定义，关于"涌现"能力的讨论存在混淆；4.针对任务特定缩放规律的发现方法研究仍处于早期阶段。</td>
-</tr>
-<tr>
-<td style="text-align: center;">对推理能力的定性理解仍显不足</td>
-<td style="text-align: center;">目前，我们对于大语言模型（LLM）中推理能力的涌现机制及其受模型规模影响的认知尚不充分，因此难以对未来LLM的推理能力做出可靠预测。亟需开展研究以揭示其推理的内在机制，深化对LLM非演绎推理能力的理解，并进一步探究Transformer架构的计算极限。</td>
-</tr>
-<tr>
-<td style="text-align: center;">具有自主意识的大语言模型带来新型风险</td>
-<td style="text-align: center;">由于能力提升（通过增强各类可操作性的访问等途径）和自主性增加，大语言模型智能体（LLM-agent）可能带来全新的对齐与安全风险。基于自然语言的指令存在欠规范性问题，导致LLM智能体执行的动作可能产生负面副作用。目标导向性可能使LLM智能体表现出奖励破解、欺骗和权力攫取等不良行为，并使得对LLM智能体的稳健监督与监测变得尤为困难。</td>
-</tr>
-<tr>
-<td style="text-align: center;">多智能体安全性无法由单智能体安全性保证</td>
-<td style="text-align: center;">在多智能体环境中确保有利结果可能面临多重挑战。首先，目前尚不完全理解单智能体训练如何影响多智能体环境中LLM智能体的行为。其次，LLM智能体的基础性可能导致关联性故障。此外，LLM智能体间的共谋可能产生不良外部性。最后，现有多智能体强化学习研究能在多大程度上改善LLM智能体在多智能体环境中的对齐性——特别是解决社会困境方面——仍不明确。</td>
-</tr>
-<tr>
-<td style="text-align: center;">安全性与性能的权衡关系尚未得到充分理解</td>
-<td style="text-align: center;">在任何工程系统的设计中，安全性与性能的权衡通常是不可避免的；然而，对于基于大语言模型（LLM）的系统，这种权衡尚未得到充分理解。当前亟需开展以下工作：设计更优的安全度量指标、刻画不同场景下的安全-性能权衡关系，并深入探究哪些安全-性能权衡具有本质性（因而在实践中无法规避）。最后，研究能实现安全性与性能帕累托改进的方法可能具有重要价值。</td>
-</tr>
-</tbody>
-</table>
+  <h1>2 1</h1>
+
+
 
 
 
@@ -705,42 +639,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
-        
-          
-          <a href="../../01-introduction/1-3/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 1.3-结构" rel="prev">
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                上一页
-              </span>
-              <div class="md-ellipsis">
-                1.3-结构
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../../paper/1/" class="md-footer__link md-footer__link--next" aria-label="下一页: ICLR" rel="next">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                下一页
-              </span>
-              <div class="md-ellipsis">
-                ICLR
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
