@@ -1,0 +1,1050 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="确保大型语言模型的对齐和安全性的基础挑战">
+      
+      
+        <meta name="author" content="Guangyu">
+      
+      
+      
+        <link rel="prev" href="../intro/">
+      
+      
+        <link rel="next" href="../../paper/1/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.18">
+    
+    
+      
+        <title>2.1-上下文学习是黑盒 - LLM的对齐和安全性的基础挑战</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/misc.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="LLM的对齐和安全性的基础挑战" class="md-header__button md-logo" aria-label="LLM的对齐和安全性的基础挑战" data-md-component="logo">
+      
+  <img src="../../img/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LLM的对齐和安全性的基础挑战
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1-上下文学习是黑盒
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="green"  aria-label="明亮主题"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="明亮主题" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="yellow"  aria-label="暗黑主题"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="暗黑主题" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wgyhhhh/FCAAS_LLM/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    wgyhhhh/FCAAS_LLM
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        主页
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../01-introduction/intro/" class="md-tabs__link">
+        第一章
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../intro/" class="md-tabs__link md-tabs__link--active">
+        第二章
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../paper/1/" class="md-tabs__link">
+        论文讲解
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LLM的对齐和安全性的基础挑战" class="md-nav__button md-logo" aria-label="LLM的对齐和安全性的基础挑战" data-md-component="logo">
+      
+  <img src="../../img/logo.jpg" alt="logo">
+
+    </a>
+    LLM的对齐和安全性的基础挑战
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wgyhhhh/FCAAS_LLM/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    wgyhhhh/FCAAS_LLM
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../..">主页</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          主页
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          第一章
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          第一章
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-introduction/intro/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-introduction/1-1/" class="md-nav__link">
+        1.1-为什么要创建这个文档
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-introduction/1-2/" class="md-nav__link">
+        1.2-术语
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-introduction/1-3/" class="md-nav__link">
+        1.3-结构
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          第二章
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          第二章
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          2.1-上下文学习是黑盒
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        2.1-上下文学习是黑盒
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 上下文学习是黑盒子
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 上下文学习是黑盒子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-icl" class="md-nav__link">
+    2.1.1 ICL是复杂的模式匹配吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-mesamesa-optimization" class="md-nav__link">
+    2.1.2 上下文学习是mesa优化(mesa-optimization)吗?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    2.1.3 哪些行为可以在上下文中指定？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    2.1.4 基于场景的上下文学习机理理解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-215" class="md-nav__link">
+    2.1.5 2.1.5 理解预训练数据分布对上下文学习的影响
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    2.1.6 理解设计选择对上下文学习的影响
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          论文讲解
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          论文讲解
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../paper/1/" class="md-nav__link">
+        ICLR
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 上下文学习是黑盒子
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 上下文学习是黑盒子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-icl" class="md-nav__link">
+    2.1.1 ICL是复杂的模式匹配吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-mesamesa-optimization" class="md-nav__link">
+    2.1.2 上下文学习是mesa优化(mesa-optimization)吗?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    2.1.3 哪些行为可以在上下文中指定？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    2.1.4 基于场景的上下文学习机理理解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-215" class="md-nav__link">
+    2.1.5 2.1.5 理解预训练数据分布对上下文学习的影响
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    2.1.6 理解设计选择对上下文学习的影响
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/wgyhhhh/FCAAS_LLM/edit/master/docs/02-chapter/2-1.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>2.1-上下文学习是黑盒</h1>
+
+<h2 id="21">2.1 上下文学习是黑盒子<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p>上下文学习是一种无需对模型参数进行任何更新却可以让LLM根据prompt中提供的信息(例如示例、推理轨迹)来学习新任务或者改进现有任务的能力(<a href="https://arxiv.org/pdf/2005.14165">Brown等,2020</a>,<a href="https://arxiv.org/pdf/2001.08361">Kaplan等,2020</a>)，上下文学习是一种高度灵活和高效的学习范式-它已被利用指导LLM以期望的方式表现能力(<a href="https://arxiv.org/pdf/2312.01552">Lin等,2023</a>)，越狱LLMs(<a href="https://arxiv.org/pdf/2310.06387">Wei等,2023</a>;<a href="https://arxiv.org/pdf/2402.05723">Xhonneux等,2024</a>)以及创建高性能的LLM智能体(<a href="https://arxiv.org/pdf/2305.16291">Wang等,2023</a>)。<strong>然而，尽管上下文学习这种动态性质有助于设计成熟的LLM系统，但是上下文学习的黑盒性质也使得在确保LLM安全性和对齐性方面尤为困难</strong>(<a href="https://arxiv.org/pdf/2304.11082">Wolf等，2023</a>,<a href="https://arxiv.org/pdf/2311.02147">Milliere, 2023</a>)。如果我们不了解上下文学习是如何工作的，就会使得预测LLM在部署中的行为变得困难；例如，它可能启用新的危险功能或绕过安全措施(<a href="https://www-cdn.anthropic.com/af5633c94ed2beb282f6a53c595eb437e8e7b630/Many_Shot_Jailbreaking__2024_04_02_0936.pdf">Anil等,2024</a>)。因此，我们迫切需要了解上下文学习的机制、上下文学习的局限性以及与与上下文学习相关的安全影响。本节介绍了为解释上下文学习而提出的各种理论和方法的问题，并强调了需要解决的几个关键问题。</p>
+<h3 id="211-icl">2.1.1 ICL是复杂的模式匹配吗？<a class="headerlink" href="#211-icl" title="Permanent link">&para;</a></h3>
+<p>有两种理论来解释transformer中上下文学习的工作机制。第一种理论认为，上下文学习是一组与训练分布紧密相关的预学习模型匹配启发式算法(pre-learned pattern-matching heuristics)。根据这种观点，一些工作提出了上下文学习作为隐式模型推理的解释(<a href="">Xie等,2022</a>;<a href="">Wang等,2023b</a>;<a href="">Wies等,2023</a>)；作为任务推理(<a href="">Min等,2022</a>;<a href="">Todd等,2023</a>;<a href="">Hendel等,2023</a>;<a href="">Bigelow等,2023</a>)；或如模板电路(template circuits)的学习(在训练期间)，这些模板电路会被自适应地检索并与提示中的标记重新绑定(<a href="">Saminathan等,2023</a>)。然而，这些理论目前仅能部分解释上下文学习。上述所有研究仅解释了基于说明样例(demonstrations)的上下文学习，而上下文学习也可能来自其他类型的反馈，例如交互式反馈(<a href="">Mehrabi等,2023</a>；<a href="">Wang等,2023a</a>)。这些研究也没有解释上下文中的多任务学习和任务的顺序学习(<a href="">Zhou等,2022</a>,第4和5节)，或上下文学习如何支持新任务的学习，例如在分布外(OOD)样本上的推理能力(<a href="">Saparov等,2023</a>)。此外，一些研究，如<a href="">Zhang等,2023a</a>和<a href="">Swaminathan等,2023</a>，假设了特定的(更简单的)数据生成过程，而这些过程与自然语言的真实数据生成过程不同，我们需要进一步完善和改进现有理论，或开发新的理论，以便我们能够充分解释上下文学习的全部行为，包括上述提到的行为。</p>
+<h3 id="212-mesamesa-optimization">2.1.2 上下文学习是mesa优化(mesa-optimization)吗?<a class="headerlink" href="#212-mesamesa-optimization" title="Permanent link">&para;</a></h3>
+<p>或者，ICL 可以被视为一种“学习型优化(learned optimization)”或“mesa优化(mesa-optimization)”(<a href="">Hubinger等,2019</a>;<a href="">von Oswald等,2023</a>)，即在训练过程中，基础优化器学习使用transformer权重来表示另一个(学习)优化算法——以及一个(学习)目标函数——有效地允许transformer自动生成学习信号(基于上下文中的数据),并充当黑盒上下文学习器发挥作用(<a href="">Kirsch 等人，2022</a>)。模型中mesa优化的出现取决于模型是否能够在其权重内实现一种学习算法。多项研究表明，transformer可以近似各种统计学习问题中的基于梯度的学习算法(<a href="">Akyürek等,2022a</a>；<a href="">von Oswald等,2022</a>；<a href="">Garg等,2022</a>；<a href="">Zhang等,2023b</a>；<a href="">Ahn等,2023</a>)。<a href="">Bai等,(2023a)</a>证明了一个具有<span class="arithmatex">\(2L\)</span>层的transformer可以模拟两层前馈神经网络中<span class="arithmatex">\(L\)</span>步的梯度下降。<a href="">Panigrahi等,(2023)z</a>提出了一种transformer架构的扩展，该扩展可以在内部模拟较小transformer的微调过程。<a href="">Bai等(2023a)</a>进一步表明，transformer可以实现上下文中的算法选择，即在推理时间，单个transformer可以根据提示中的信息，自适应地选择不同的学习算法来解决给定的任务(例如，对于回归任务采用逻辑回归，对于分类任务采用逻辑分类)。</p>
+<p>这些研究表明，transformers原则上能够在受控实验中实现mesa优化。然而，目前尚不清楚当transformer使用更复杂的目标(例如语言建模目标)训练的transformers是否以及何时会学习进行mesa优化。具体而言，一个关键的未知问题是：transformers支持哪些mesa目标来实现mesa优化?现有工作提供了大量证据，表明transformers可以通过mesa优化解决简单的监督学习任务。然而，迄今为止，对transformers是否可以通过mesa优化解决更复杂的上下文学习任务的研究非常有限(<a href="">Lin等,2023b</a>)；未来的研究应该探索更贴近真实世界语言建模结构的任务。此外，即使对于一些已经有深入研究的学习任务(例如线性回归)，当前文献对于transformers执行的是哪种学习算法仍然存在分歧(<a href="">von Oswald,2022</a>；<a href="">Fu等,2023a</a>)。为了解决这一争议，需要进一步研究以区分影响transformers所实现学习算法的各种因素(<a href="">Zhong等,2023a</a>)。未来的工作还可以开发更严格和通用的方法来区分mesa优化和其他形式的上下文学习，并研究上下文示例分布在决定是否发生mesa优化以及理解由此产生的mesa优化器的归纳偏置方面的实际重要性。 </p>
+<h3 id="213">2.1.3 哪些行为可以在上下文中指定？<a class="headerlink" href="#213" title="Permanent link">&para;</a></h3>
+<p>目前尚不清楚哪些功能可以通过上下文学习中实现。更具体地说，给定一个预训练模型，我们可以提示它执行哪些任务？如果总是能找到一个prompt来引导LLM执行任何任务，那么这可能表明越狱(Jailbreak，参见3.5节)是一个无法解决的问题(<a href="">Millière，2023</a>)。从根本上说，这是一个关于上下文内的泛化问题，即一个固定的模型是否可以通过适当的提示转换为任意精度的近似器，以逼近任意(连续)函数。虽然众所周知，当经过训练后，transformers是通用逼近器(<a href="">Yun et al., 2019</a>)，最近还证明了状态空间模型也是如此(<a href="">Li等,2022a</a>；<a href="">Wang and Xue, 2023</a>；<a href="">Cirone等,2024</a>)，但它们在上下文中的能力尚不明确。<a href="">Wang等,(2023c)</a>证明了使用transformers可以在上下文中进行通用近似，但他们的构建要求所有可能的函数都编码在模型权重中，这导致模型变得不切实际地庞大。然而，<a href="">Petrov等,(2024)</a>证明不需要记忆，一个相对较小的模型就可以在上下文中成为通用近似器。这个结果表明，对于一个现实规模的模型，可能无法对其进行安全保护(即以一种无法越狱的方式进行安全微调)。 </p>
+<p>上下文中的通用逼近理论仍处于初级阶段，上述结果的实际安全性和安全性影响也尚不明确。例如，上述模型需要为预训练模型设计特定手工权重。目前尚不清楚通过在典型数据集上使用梯度下降进行学习，是否可以获得通用逼近能力，因此，这种行为在现实世界模型中是否可能发生也并不确定。此外，<a href="">Petrov等</a>在构建模型所需的prompt长度是不切实际的长。然而，通过利用模型中已有的知识和技能，可以缩短这一长度<a href="">Petrov等,2023a</a>。因此，研究预训练数据对上下文通用逼近的影响，可以帮助理解LLM上下文学习能力在现实世界中的安全性和其影响。上述所有结果都依赖于Transformer架构中的注意力机制，因此无法直接递归到其他循环模型。因此，理解其他架构的上下文逼近特性是另一个开放性的问题，目前几乎没有相关工作研究<a href="">Lee等，2023a</a>。</p>
+<h3 id="214">2.1.4 基于场景的上下文学习机理理解<a class="headerlink" href="#214" title="Permanent link">&para;</a></h3>
+<p>当前的可解释性技术繁华性不足，无法通过基于可解释性的方法来全面理解LLM中上下文学习的机制(参见第3.4节)。然而，它们仍然可以利用开发基于场景的上下文学习机制理解(<a href="">Olsson等，2022</a>；<a href="">Reddy，2023</a>)，即在对prompt结构和通过上下文学习执行的任务施加人为限制时，在LLM中识别对ICL至关重要的。这样的案例研究可以深入了解模型中不同计算结构所发挥的相对作用，以及上下文学习机制在不同任务中的变化方式。例如，<a href="">Todd等(2023)</a>研究了上下文学习基于抽取和抽象的自然语言处理中的上下文学习，发现少量的注意力头(称为“功能向量”)负责传输任务的紧凑表示，然后触发任务的执行。类似，<a href="">Merullo等,(2023a)</a>表明，在通常研究的上下文学习任务中，推断实体之间的关系（例如推断一个国家的首都），中到晚期的前馈层在识别和揭示上下文中包含的相关信息方面起着关键的作用，这些信息对于推断关系和完成任务是必需的。<a href="">Halawi等,(2023)</a>研究了在分类任务上的上下文学习，其中演示数据具有错误标签，从而与LLM的先验知识相冲突。这使得<a href="">Halawi等</a>发现了虚假归纳头(false induction heads)；即LLM晚期层中的注意力头，它们会关注并复制演示中的错误信息。 </p>
+<p>这些初步证据表明，针对特定任务类的案例研究可能是一种有效的方法，其有助于建立对LLM中上下文学习机制的理解，并可能有助于确定上下文学习在不同任务中的变化方式和原因，以及特定架构的归纳偏差如何影响上下文学习。未来的研究可以分析更大的LLM、各种任务类型和各种提示风格。还可以利用可解释性技术来解释文献中发现的上下文学习的特异性现象，例如为什么ICL有时在给定测试分布的示例时表现更差(<a href="">Saparov等人，2023</a>)或为什么不同规模的LLM在处理上下文中的虚假信息时有所不同(<a href="">Wei等人，2023b</a>)。 </p>
+<h3 id="215-215">2.1.5 2.1.5 理解预训练数据分布对上下文学习的影响<a class="headerlink" href="#215-215" title="Permanent link">&para;</a></h3>
+<p>上下文学习的结构受到预训练数据分布结构的强烈调节。任务分布的特殊属性，如任务多样性（Raventós 等人，2023；Kirsch 等人，2022），“突发性”（Chan 等人，2022）或组合结构（Hahn 和 Goyal，2023）可能是 ICL 出现的关键因素。然而，这些发现主要局限于相对简单的设置，需要进一步的工作来验证它们在现实世界语言建模设置中的正确性。大型文本数据集是否真正满足这些标准？如果这些标准确实被文本数据集满足，哪些标准实际上对 LLM 中的 ICL 负责？对于其中一些标准（例如“突发性”），这些问题可以通过对流行的数据集（如 The Pile (Gao 等人，2020)，RedPajama (Together Computer，2023) 等）进行分析来回答。对于其他标准，如任务多样性，基于分析的方法可能不适合，因为可能没有明显的方法来跟踪和测量这种标准在非结构化文本数据集中的情况。在这种情况下，一种替代策略可能是以受控的方式创建各种合成文本数据集，并监控在这些数据集上训练的语言模型中 ICL 的出现，以更好地理解 ICL 出现的必要和充分条件。 </p>
+<h3 id="216">2.1.6 理解设计选择对上下文学习的影响<a class="headerlink" href="#216" title="Permanent link">&para;</a></h3>
+<p>上下文学习受到LLM开发中涉及的各种设计和训练选择的影响，例如模型大小、预训练数据集大小、预训练计算、指令调整？ICL 对各种因素的敏感性，包括但不限于上述因素，是众所周知的。特别是，几项研究指出，ICL 的性能对 LLM 的规模非常敏感；Wei 等人（2022a）；Brown 等人（2020）；Kaplan 等人（2020）指出，ICL 是一种新兴能力；Akyürek 等人（2022a）发现，基于变压器的深度，变压器模拟不同学习算法的相变；Wei 等人（2023b）发现，更大的 LLM 具有更强的语义先验（即零样本性能更好），但也更有可能允许上下文信息覆盖语义先验。Wei 等人（2023b）进一步表明指令调整不成比例地加强了语义先验；因此，指令调整降低了上下文信息覆盖语义先验的倾向。同时，Singh等人（2023）认为ICL是一种暂时现象，延长训练会导致ICL消散，有利于“在权重”学习（Chan等人，2022）。目前，我们对为什么ICL对各种设计和训练选择敏感，以及这些选择如何影响ICL背后的机制缺乏深入理解。特别是，提高我们对各种训练设计决策，例如指令调整或延长训练，如何影响ICL的理解，可能会为我们提供工具来调节LLM中ICL的强度。这可能有助于减轻LLM由于其强大的上下文学习能力而带来的安全风险（Wolf等人，2023；Millière，2023）。 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ICL的动态和灵活性是LLM成功的关键，因为它允许LLM熟练地改进已知任务，并学习执行新的任务。随着LLM的进一步扩展和在ICL方面变得更加熟练，ICL可能会获得更加突出的作用。然而，从对齐和安全的角度来看，ICL的黑盒性质是一种风险，因此迫切需要更好地理解ICL的机制。已经提出了几种“理论”，它们为LLM中的ICL如何工作提供了合理的解释。然而，LLM中ICL的底层机制仍然不甚了解。我们强调了一些研究问题，这些研究问题可能有助于解决对ICL底层机制的理解。  </p>
+<ol>
+<li>
+<p>不同的ICL理论，如复杂的模式匹配或mesaoptimization，是否可以扩展到解释LLMs展示的全部ICL行为？←</p>
+</li>
+<li>
+<p>ICL与现有学习范式之间的关键差异和共同点是什么？先前的工作大多是从少量监督学习的角度来研究ICL的。然而，在实践中，ICL有时会表现出与监督学习截然不同的行为，并且可以从标记示例以外的数据中学习，例如交互反馈、解释或推理模式。</p>
+</li>
+<li>
+<p>变压器可以在上下文中实现哪些学习算法？虽然早期的研究（例如Akyürek等人，2022a）认为变压器实现基于梯度下降的学习算法，但最近的工作（Fu等人，2023a）表明，变压器还可以实现更高阶的迭代学习算法，例如迭代牛顿方法。</p>
+</li>
+<li>
+<p>什么是研究ICL的最佳抽象设置，这些设置更好地反映了语言建模的现实结构，同时仍然易于处理？当前的玩具设置，例如学习解决线性回归问题，过于简单，可能导致研究结果无法转移到实际的LLM上。</p>
+</li>
+<li>
+<p>在多大程度上，不同的架构是“上下文中的”通用逼近器？我们能否更好地描述模型在实践中可以学习的函数？预训练数据和训练目标如何影响模型的上下文通用逼近能力？</p>
+</li>
+<li>
+<p>基于可解释性的分析如何有助于对ICL机制的普遍理解？这种方法是否可以用来解释与ICL相关的各种现象，例如为什么ICL性能在不同任务之间变化，特定架构的归纳偏差如何影响ICL，不同的提示风格如何影响ICL等？</p>
+</li>
+<li>
+<p>大规模文本数据集的哪些特性导致了在自回归目标下训练的LLM中出现ICL？</p>
+</li>
+<li>
+<p>预训练管道的不同组件（例如预训练数据集构建、模型大小、预训练FLOPS、学习目标）和微调管道的不同组件如何影响ICL？</p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../intro/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 介绍" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                介绍
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../paper/1/" class="md-footer__link md-footer__link--next" aria-label="下一页: ICLR" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                ICLR
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/wgyhhhh/" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://space.bilibili.com/281217178" target="_blank" rel="noopener" title="哔哩哔哩" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92.02c-26.45-.8-48.21-9.8-65.28-27.2C9.682 419.4.767 396.5 0 368.2V169.8c.767-26 9.682-47.6 26.74-65.7C43.81 87.75 65.57 78.77 92.02 78h29.38L96.05 52.19c-5.75-5.73-8.63-13-8.63-21.79 0-8.8 2.88-16.06 8.63-21.797C101.8 2.868 109.1 0 117.9 0s16.1 2.868 21.9 8.603L213.1 78h88l74.5-69.397C381.7 2.868 389.2 0 398 0c8.8 0 16.1 2.868 21.9 8.603 5.7 5.737 8.6 12.997 8.6 21.797 0 8.79-2.9 16.06-8.6 21.79L394.6 78h29.3c26.4.77 48 9.75 64.7 26.1zm-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96.05c-9.59.4-17.45 3.7-23.58 9.8-6.14 6.1-9.4 13.9-9.78 23.5v194.4c0 9.2 3.26 17 9.78 23.5s14.38 9.8 23.58 9.8H416.4c9.2 0 17-3.3 23.3-9.8 6.3-6.5 9.7-14.3 10.1-23.5V173.8zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5-9.6 0-17.5-3.2-23.6-9.5-6.1-6.3-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2 6.3-6.3 13.2-9.6 23.3-10 9.2.4 17 3.7 23.3 10zm191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.1 6.3-14 9.5-23.6 9.5-9.6 0-17.4-3.2-23.6-9.5-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2 6.3-6.3 14.1-9.6 23.3-10 9.2.4 17 3.7 23.3 10z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:wgyhhh001@gmail.com" target="_blank" rel="noopener" title="联系作者" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.7l167.6-182.9c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+  
+    
+  
+
+
+
+
+<h4>Cookie 设置</h4>
+<p>我们使用 cookies 来识别您的重复访问和偏好，以及衡量我们文档的有效性和用户是否找 到他们正在搜索的内容。<br/> 在您的同意下，您将帮助我们改进我们的文档。<br/> （您稍后仍可以在网页左下角重新修改 cookies 设置）</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">同意</button>
+    
+    
+    
+  
+    
+    
+      <button type="reset" class="md-button md-button--primary">拒绝</button>
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">管理设定</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "navigation.expand", "navigation.indexes", "content.tabs.link", "content.tooltips", "content.code.copy", "content.action.edit", "content.action.viewhttp://localhost/", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="https://Xiaokang2022.github.io/maliang/js/click-colorful.js"></script>
+        
+      
+        
+          <script src="https://cdn.jsdelivr.net/gh/Wcowin/Wcowin.github.io@main/docs/javascripts/extra.js"></script>
+        
+      
+        
+          <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        
+      
+        
+          <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+      
+        
+          <script src="https://cdn.jsdelivr.net/npm/mermaid@10.0.2/dist/add-html-label-6e56ed67.min.js"></script>
+        
+      
+        
+          <script src="../../javascripts/extra.js"></script>
+        
+      
+        
+          <script src="../../javascripts/mathjax.js"></script>
+        
+      
+        
+          <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+      
+    
+  </body>
+</html>
