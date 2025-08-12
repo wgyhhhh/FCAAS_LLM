@@ -16,12 +16,14 @@
         <link rel="prev" href="../../02-chapter/2-1/">
       
       
+        <link rel="next" href="../2/">
+      
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.1.18">
     
     
       
-        <title>ICLR - LLM的对齐和安全性的基础挑战</title>
+        <title>Safety Alignment Should Be Made More Than Just a Few Tokens Deep - LLM的对齐和安全性的基础挑战</title>
       
     
     
@@ -76,6 +78,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#contribution1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -108,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ICLR
+              Safety Alignment Should Be Made More Than Just a Few Tokens Deep
             
           </span>
         </div>
@@ -560,6 +567,10 @@
         
           
         
+          
+        
+          
+        
       
       
         <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -587,10 +598,108 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Safety Alignment Should Be Made More Than Just a Few Tokens Deep
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        ICLR
+        Safety Alignment Should Be Made More Than Just a Few Tokens Deep
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contribution1" class="md-nav__link">
+    Contribution1: 浅层安全对齐
+  </a>
+  
+    <nav class="md-nav" aria-label="Contribution1: 浅层安全对齐">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    Q1: 为什么安全对齐会呈现“浅层”的特征
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    Q2: 浅层安全对齐可能是诸多安全漏洞的根源
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-safety-alignment" class="md-nav__link">
+    Q3: 微调攻击可以快速破坏safety alignment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contribution2" class="md-nav__link">
+    Contribution2: 加深安全对齐
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contribution3" class="md-nav__link">
+    Contribution3: 约束性微调优化目标
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        STAIR:Improving Safety Alignment with Introspective Reasoning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        Safety Layers In Aligned Large Language Models:The Key To LLM Security
+      </a>
     </li>
   
 
@@ -620,6 +729,62 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contribution1" class="md-nav__link">
+    Contribution1: 浅层安全对齐
+  </a>
+  
+    <nav class="md-nav" aria-label="Contribution1: 浅层安全对齐">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    Q1: 为什么安全对齐会呈现“浅层”的特征
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    Q2: 浅层安全对齐可能是诸多安全漏洞的根源
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-safety-alignment" class="md-nav__link">
+    Q3: 微调攻击可以快速破坏safety alignment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contribution2" class="md-nav__link">
+    Contribution2: 加深安全对齐
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contribution3" class="md-nav__link">
+    Contribution3: 约束性微调优化目标
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -641,9 +806,147 @@
   
 
 
-  <h1>ICLR</h1>
+  <h1>Safety Alignment Should Be Made More Than Just a Few Tokens Deep</h1>
 
-
+<table>
+<thead>
+<tr>
+<th>原文</th>
+<th><a href="https://iclr.cc/virtual/2025/oral/31915">Safety Alignment Should Be Made More Than Just a Few Tokens Deep</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会议</td>
+<td>ICLR</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>2025</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>2025-08-12 9:08:59</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>Done</td>
+</tr>
+</tbody>
+</table>
+<p>作者在文章中给出了三个贡献</p>
+<ul>
+<li>
+<p>当前LLM的安全对齐主要集中在前几个token，导致模型易受攻击，若模型的初始输出标记偏离常规安全前缀（无论是偶然发生还是通过对抗性诱导），其生成内容可能会灾难性地滑向有害轨迹。</p>
+</li>
+<li>
+<p>提出了深度安全对齐：设计了一种数据增强方法，通过训练模型虽然有害前缀后但可以恢复到拒绝，从而构建“深度安全对齐”</p>
+</li>
+<li>
+<p>抗微调攻击的优化目标：设计了一种约束性微调优化目标，通过限制初始token的分布变化，使安全对齐更加持久</p>
+</li>
+</ul>
+<p>Safety-aligned language models的一个公认特征是它们可以有效拒绝有害指令。这些安全相应通常以一些refusal tokens (e.g., ”I cannot“, “I apologize”,”I am unable”)开头。</p>
+<p>作者提到尽管这些严格的<strong>拒绝前缀(refusal prefix)</strong>看起来微不足道，但它们实际上在浅层安全对齐方案中发挥着重要作用。</p>
+<p><img alt="" src="../../img/paper-1/1.png" /></p>
+<blockquote>
+<p>表1: 安全模式的捷径：即使是未对齐模型，有害性比率也会在解码时预填充拒绝前缀<span class="arithmatex">\(s\)</span>后降低，即<span class="arithmatex">\(y \sim \pi_\theta(\cdot|x, s)\)</span>。</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>未对齐模型缺乏系统性的安全对齐训练，仅通过初始token的强制修改无法改变其后续生成分布的倾向性。论文提出的深层安全对齐（Deep Safety Alignment）正是为了解决这一问题，通过训练模型在更长的token序列中保持安全行为，从而提升整体鲁棒性。</p>
+</div>
+<h2 id="contribution1">Contribution1: 浅层安全对齐<a class="headerlink" href="#contribution1" title="Permanent link">&para;</a></h2>
+<h3 id="q1">Q1: 为什么安全对齐会呈现“浅层”的特征<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>微调(SFT)过程中，模型被训练以模仿人类的回答，但是数据很少会存在以<strong>有害前缀</strong>开头(如: “好的，我来教你如何...”)，随后变为拒绝的实例。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>这种训练数据的特性导致模型只学会在初始token上生成安全拒绝，而没有学习如何在有害前缀后恢复到安全状态。</p>
+</div>
+<ul>
+<li>人类反馈强化学习(RLHF)中，模型奖励基于自身的回答，如果模型已经学会为有害指令生成<strong>拒绝前缀</strong>，那么生成有害前缀的概率就非常低了。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>因此，模型几乎不会因为生成有害前缀而受到惩罚，也就不会学习如何处理有害前缀后的安全恢复。这使得模型倾向于利用“安全模式捷径”（只在初始token上保持安全）。</p>
+</div>
+<h3 id="q2">Q2: 浅层安全对齐可能是诸多安全漏洞的根源<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../../img/paper-1/3.png" /></p>
+<blockquote>
+<p>图1: 对齐模型与非对齐模型在有害HEx-PHI数据上的逐token KL散度。</p>
+</blockquote>
+<p>如图1中KL散度所示，与未对齐模型相比，浅层对齐模型在生成后续有害token时的分布基本不受影响。</p>
+<p><img alt="" src="../../img/paper-1/2.png" /></p>
+<blockquote>
+<p>图2：ASR与预填充有害标记数量的关系，其中<span class="arithmatex">\(\hat{y} \sim \pi_{\theta}(\cdot|x, y_{\leq k})\)</span>作用于Harmful HEx-PHI数据集。</p>
+</blockquote>
+<p>通过将前<span class="arithmatex">\(k\)</span>个token预先填充了非拒绝前缀，可以看出对齐模型生成有害内容的可能性从接近零迅速增加到<span class="arithmatex">\(50\%\)</span>以上。</p>
+<p>作者在第三节中表明，如果能够扩展安全性，从shallow到deep，那么模型就可以对这三种类型的漏洞得到改善。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>三种类型漏洞:</p>
+<ol>
+<li>
+<p>预填充攻击: 一种简单的利用方法是在推理开始时用非拒绝前缀预填充前几个token。</p>
+</li>
+<li>
+<p>后缀攻击</p>
+</li>
+<li>
+<p>简单随机采样攻击: 采用适当解码超参数的随机采样可能会使初始拒绝标记发生偏移，从而落入非拒绝轨迹，最终绕过这种浅层安全对齐机制。</p>
+</li>
+</ol>
+</div>
+<h3 id="q3-safety-alignment">Q3: 微调攻击可以快速破坏safety alignment<a class="headerlink" href="#q3-safety-alignment" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>仅在几个有害数据点上进行微调就可以撤销LLM中的安全对齐</p>
+</li>
+<li>
+<p>即使是良性下游数据集微调对齐的LLM也可能导致问题</p>
+</li>
+</ol>
+<p><img alt="" src="../../img/paper-1/4.png" /></p>
+<p>微调攻击之所以能够快速破坏安全对齐，是因为安全对齐主要集中在初始token的生成分布，作者分别从交叉熵损失、梯度幅度、KL散度逐token分析</p>
+<ol>
+<li>
+<p>在微调过程，较高的损失表明模型在该位置的预测与目标有害回答差距较大</p>
+</li>
+<li>
+<p>在微调过程，衡量微调过程中每个token位置的损失对模型参数<span class="arithmatex">\(\theta\)</span>的更新贡献。较大的梯度幅度表明该token位置对模型行为的变化有更大影响</p>
+</li>
+<li>
+<p>在安全基准数据集上，衡量微调模型<span class="arithmatex">\(\pi_\theta\)</span>与初始对齐模型<span class="arithmatex">\(\pi_\text{aligned}\)</span>在每个token位置<span class="arithmatex">\(t\)</span>的生成分布差异。较高的KL散度表明微调显著改变了该位置的生成行为</p>
+</li>
+</ol>
+<p>可以看出微调主要影响初始token的分布，而后续token的分布变化较小。</p>
+<h2 id="contribution2">Contribution2: 加深安全对齐<a class="headerlink" href="#contribution2" title="Permanent link">&para;</a></h2>
+<p>作者希望通过这些增强的数据引导模型回到拒绝相应的轨道上，即使最初生成的几个token偏离了有害前缀，但是模型后续仍然可以抑制有害内容。</p>
+<p>接下来作者使用256个安全恢复示例<span class="arithmatex">\(D_H\)</span>（使模型具有深层安全对齐）加良性数据集<span class="arithmatex">\(D_B\)</span>（保证模型保持原有的效用）进行模型微调。</p>
+<p>$$$$</p>
+<p><img alt="" src="../../img/paper-1/5.png" /></p>
+<blockquote>
+<p>图4：数据增强导致有害回答后半部分token上的有害HEx-PHI（第2.2节）KL散度增大。</p>
+</blockquote>
+<p>微调之后的模型在所有的token上都保持的较高的KL散度，证明使用安全恢复实例微调对模型会影响到每个token上</p>
+<p>作者提到shallow safety alignment时诸多安全漏洞的来源，因此需要验证deep safety alignment在减轻这些漏洞方面是否具有优势。</p>
+<p><img alt="" src="../../img/paper-1/6.png" /></p>
+<blockquote>
+<p>表3：Llama-2-7B-Chat初始模型（Initial）及其增强版本（Augmented）的对抗成功率（ASR）。预填充攻击采用Harmful HEx-PHI数据集进行评估（与图2相同）。针对另外两种攻击方式，ASR结果同时报告了HEx-PHI基准测试和原论文采用的评估数据集——GCG攻击对应AdvBench[29]，解码参数攻击对应MaliciousInstruct[24]。所有数据以三次实验的（均值±标准差）形式呈现。</p>
+</blockquote>
+<h2 id="contribution3">Contribution3: 约束性微调优化目标<a class="headerlink" href="#contribution3" title="Permanent link">&para;</a></h2>
+<p>如果最初几个输出令牌对模型的安全对齐起到决定性作用，那么通过简单的约束来确保这些初始令牌的生成分布不会显著偏离，就应该能在微调过程中保护对齐不被破坏。</p>
+<div class="arithmatex">\[\min_{\theta}\left\{\quad\operatorname*{\mathbb{E}}_{(x,y)\sim D}-\sum_{t=1}^{|y|}\frac{2}{\beta_t}\log\left[\sigma\left(\beta_t\log\frac{\pi_\theta(y_t|x,y_{&lt;t})}{\pi_{\mathrm{aligned}}(y_t|x,y_{&lt;t})}\right)\right]\right\},\]</div>
+<p>为什么上述公式可以控制每个token位置生成分布的偏差，将微调目标函数重写为</p>
+<div class="arithmatex">\[\min_{\theta}\left\{\sum_{t\geq1}\mathbb{E}_{(x,y)\sim D}\left[\mathbb{1}_{\{t\leq|y|\}}\cdot\frac{2}{\beta_{t}}S\left[\beta_{t}\left(\underbrace{\log\pi_{\mathrm{aligned}}\left(y_{t}|x,y_{&lt;t}\right)-\log\pi_{\theta}\left(y_{t}|x,y_{&lt;t}\right)}_{=:\Delta_{t}(x,y_{&lt;t},y_{t})}\right)\right]\right\},(4)\right.\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>具体公式性质的推导暂时按下不表</p>
+</div>
+<p>作者想测试该目标能否实现两个目的: 即<strong>安全对齐</strong>和<strong>适应下游数据集</strong></p>
+<p><img alt="" src="../../img/paper-1/7.png" /></p>
 
 
 
@@ -686,6 +989,21 @@
             </div>
           </a>
         
+        
+          
+          <a href="../2/" class="md-footer__link md-footer__link--next" aria-label="下一页: STAIR:Improving Safety Alignment with Introspective Reasoning" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                STAIR:Improving Safety Alignment with Introspective Reasoning
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
